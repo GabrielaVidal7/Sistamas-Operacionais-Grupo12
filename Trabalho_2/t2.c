@@ -28,8 +28,6 @@ int main(void){
 
 	//Comandos para inicializar os semaforos utilizados no codigo
 	sem_init (&mutex, 0 , 1);
-	sem_init(&vazio, 0, num_max);
-	sem_init(&cheio, 0, 0);
 	
 	pthread_t thread1;
 	pthread_t thread2;	
