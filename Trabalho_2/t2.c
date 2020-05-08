@@ -52,7 +52,6 @@ int main(void){
 char *arquivo_novo()
 {
 	char *arquivo = (char*) malloc(sizeof(char)*64);
-	printf("Insira o nome do arquivo para impressao\n");
 	scanf("%s", arquivo);
 	return arquivo;
 }
@@ -60,7 +59,7 @@ char *arquivo_novo()
 //Funcao que indica se o arquivo na fila foi impresso
 void consume_item(char *item)
 {
-	printf("\nImprimindo arquivo: %s\n", item);
+	printf("Imprimindo arquivo: %s\n", item);
 	free(item);
 }
 
@@ -71,8 +70,9 @@ void insere_arquivo(char *val)
 		buffer[pos_vazia] = val;
 		pos_vazia = (pos_vazia + 1) % num_max; 
 		total++;
+		printf("%s inserido\n",val);
 		if(total == num_max)
-			printf("\nBuffer cheio, aguarde para adicionar mais um arquivo\n");
+			printf("Buffer preenchido, aguardando impressora\n");
 	}
 }
 
@@ -107,12 +107,13 @@ void *impressora(void *p_arg) {
 	char *item;
 
 	while(TRUE) {
+		sleep(0.5);
 		sem_wait(&cheio);
 		sem_wait(&mutex);
 		item = remove_item();
 		sem_post(&mutex);
 		sem_post(&vazio);
 		consume_item(item);
-		sleep(5);
+		sleep(4);
 	}
 }
