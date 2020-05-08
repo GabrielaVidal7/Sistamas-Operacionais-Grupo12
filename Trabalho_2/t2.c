@@ -91,9 +91,7 @@ void *usuario(void *p_arg) {
 	
 	while(TRUE) {
 		item = arquivo_novo();	//Retorna o nome do arquivo que será impresso
-		
 		sem_wait(&mutex);       //Faz o semaforo dormir
-
 		insere_arquivo(item);
 		sem_post(&mutex);	//Faz o semaforo acordar
 	}
