@@ -10,8 +10,6 @@
 #define num_max 10
 
 sem_t  mutex;	//semaforo utilizado para garantir que haja exclusao mutua na regiao critica (a regiao do buffer)
-sem_t vazio;	//semaforo utilizado para controlar as posicoes do buffer que estao vazias
-sem_t cheio;	//semaforo utilizado para controlar as posicoes do buffer que estao preenchidas
 
 char *buffer[num_max];	//buffer com no maximo 10 espacos
 int pos_cheia;	//valor que indica a proxima posicao preenchida no buffer
@@ -94,11 +92,10 @@ void *usuario(void *p_arg) {
 	while(TRUE) {
 		item = arquivo_novo();	//Retorna o nome do arquivo que será impresso
 		
-		sem_wait(&vazio);	//Faz o semaforo dormir
-		sem_wait(&mutex);
+		sem_wait(&mutex);       //Faz o semaforo dormir
+
 		insere_arquivo(item);
 		sem_post(&mutex);	//Faz o semaforo acordar
-		sem_post(&cheio);
 	}
 }
 
@@ -108,11 +105,9 @@ void *impressora(void *p_arg) {
 
 	while(TRUE) {
 		sleep(0.5);
-		sem_wait(&cheio);
 		sem_wait(&mutex);
 		item = remove_item();
 		sem_post(&mutex);
-		sem_post(&vazio);
 		consume_item(item);
 		sleep(4);
 	}
