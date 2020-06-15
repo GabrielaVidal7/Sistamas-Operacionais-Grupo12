@@ -10,8 +10,6 @@
 #define num_max 10
 
 sem_t  mutex;	//semaforo utilizado para garantir que haja exclusao mutua na regiao critica (a regiao do buffer)
-sem_t vazio;	//semaforo utilizado para controlar as posicoes do buffer que estao vazias
-sem_t cheio;	//semaforo utilizado para controlar as posicoes do buffer que estao preenchidas
 
 char *buffer[num_max];	//buffer com no maximo 10 espacos
 int pos_cheia;	//valor que indica a proxima posicao preenchida no buffer
@@ -30,8 +28,6 @@ int main(void){
 
 	//Comandos para inicializar os semaforos utilizados no codigo
 	sem_init (&mutex, 0 , 1);
-	sem_init(&vazio, 0, num_max);
-	sem_init(&cheio, 0, 0);
 	
 	pthread_t thread1;
 	pthread_t thread2;	
@@ -52,7 +48,6 @@ int main(void){
 char *arquivo_novo()
 {
 	char *arquivo = (char*) malloc(sizeof(char)*64);
-	printf("Insira o nome do arquivo para impressao\n");
 	scanf("%s", arquivo);
 	return arquivo;
 }
@@ -60,7 +55,7 @@ char *arquivo_novo()
 //Funcao que indica se o arquivo na fila foi impresso
 void consume_item(char *item)
 {
-	printf("\nImprimindo arquivo: %s\n", item);
+	printf("Imprimindo arquivo: %s\n", item);
 	free(item);
 }
 
@@ -71,8 +66,9 @@ void insere_arquivo(char *val)
 		buffer[pos_vazia] = val;
 		pos_vazia = (pos_vazia + 1) % num_max; 
 		total++;
+		printf("%s inserido\n",val);
 		if(total == num_max)
-			printf("\nBuffer cheio, aguarde para adicionar mais um arquivo\n");
+			printf("Buffer preenchido, aguardando impressora\n");
 	}
 }
 
@@ -93,12 +89,9 @@ void *usuario(void *p_arg) {
 	
 	while(TRUE) {
 		item = arquivo_novo();	//Retorna o nome do arquivo que será impresso
-		
-		sem_wait(&vazio);	//Faz o semaforo dormir
-		sem_wait(&mutex);
+		sem_wait(&mutex);       //Faz o semaforo dormir
 		insere_arquivo(item);
 		sem_post(&mutex);	//Faz o semaforo acordar
-		sem_post(&cheio);
 	}
 }
 
@@ -107,12 +100,11 @@ void *impressora(void *p_arg) {
 	char *item;
 
 	while(TRUE) {
-		sem_wait(&cheio);
+		sleep(0.5);
 		sem_wait(&mutex);
 		item = remove_item();
 		sem_post(&mutex);
-		sem_post(&vazio);
 		consume_item(item);
-		sleep(5);
+		sleep(4);
 	}
 }
