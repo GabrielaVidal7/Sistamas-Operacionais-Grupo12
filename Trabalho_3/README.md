@@ -26,3 +26,5 @@ Obs: o formato de arquivo deve ser .txt
 	P1 W 1025
 	P1 W 1026
 ```
+
+O processo é inicializado como sendo executado pela CPU. Ele só muda para I/O quando for enviado um comando para o programa pedindo para mudar (número-do-processo I).
