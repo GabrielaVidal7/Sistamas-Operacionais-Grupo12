@@ -1,10 +1,10 @@
 # Sistamas-Operacionais-Grupo12
-Trabalho 3 da matéria de Sistemas Operacionais I (SSC0640), ministrada pelo professor Julio Cezar Estrella no primeiro semestre de 2020.
+Trabalho 3 da matÃ©ria de Sistemas Operacionais I (SSC0640), ministrada pelo professor Julio Cezar Estrella no primeiro semestre de 2020.
 
-## Especificações do trabalho:
-O trabalho foi feito em C, por conta da familiaridade que os membros apresentam com essa linguagem de programação. Está comentado em algumas linhas.
+## EspecificaÃ§Ãµes do trabalho:
+O trabalho foi feito em C, por conta da familiaridade que os membros apresentam com essa linguagem de programaÃ§Ã£o. EstÃ¡ comentado em algumas linhas.
 
-Nesse trabalho, considerou-se o tamanho dos processos criados como sendo em kb. Abaixo está um exemplo de entrada de arquivo que deve ser feita para rodar esse programa.
+Nesse trabalho, considerou-se o tamanho dos processos criados como sendo em kB. Abaixo estÃ¡ um exemplo de entrada de arquivo que deve ser feita para rodar esse programa.
 
 Obs: o formato de arquivo deve ser .txt
 ```
@@ -27,4 +27,4 @@ P1 W 1025
 P1 W 1026
 ```
 
-O processo é inicializado como sendo executado pela CPU. Ele só muda para I/O quando for enviado um comando para o programa pedindo para mudar (número-do-processo I).
+O processo Ã© inicializado como sendo executado pela CPU. Ele sÃ³ muda para I/O quando for enviado um comando para o programa pedindo para mudar (nÃºmero-do-processo I).
