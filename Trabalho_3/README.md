@@ -6,7 +6,7 @@ O trabalho foi feito em C, por conta da familiaridade que os membros apresentam 
 
 Nesse trabalho, considerou-se o tamanho das páginas e dos processos criados como sendo em kBs. Abaixo está um exemplo de entrada de arquivo que deve ser feita para rodar esse programa.
 
-Obs: o formato de arquivo deve ser .txt
+Obs: o formato de arquivo deve ser .txt e o nome do arquivo deve ser necessariamente "entrada"
 ```
 P1 C 5
 P1 R 0
